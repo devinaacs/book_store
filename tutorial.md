@@ -10,7 +10,17 @@
 ```
 <br>
 
-3. Creating Django Model
+3. Add Book Outlet App definition on settings.py 
+```bash
+    INSTALLED_APPS = [
+        ...,
+        'book_outlet',
+    ]
+```
+<br>
+
+4. Creating Django Model
+
 📂 ./book_outlet/models.py
 ```bash
     from django.db import models
@@ -20,4 +30,10 @@
     class Book(models.Model):
         title = models.CharField(max_length=100)
         rating = models.IntegerField() 
+```
+
+5. Make Migrations
+```bash
+    python3 manage.py makemigrations
+    python3 manage.py migrate 
 ```
