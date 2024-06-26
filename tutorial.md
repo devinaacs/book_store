@@ -37,3 +37,30 @@
     python3 manage.py makemigrations
     python3 manage.py migrate 
 ```
+it will create file ./book_outlet/migrations/0001_initial.py
+
+6. Updating Models & Migrations
+
+📂 ./book_outlet/models.py
+```bash
+   from django.db import models
+    from django.core.validators import MinValueValidator, MaxValueValidator
+
+    # Create your models here.
+
+
+    class Book(models.Model):
+        title = models.CharField(max_length=100)
+        rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+        author = models.CharField(null=True, max_length=100)
+        is_bestselling = models.BooleanField(default=False)
+
+        def __str__(self):
+            return f"{self.title} ({self.rating})"
+
+```
+```bash
+    python3 manage.py makemigrations
+    python3 manage.py migrate 
+```
+it will create file ./book_outlet/migrations/0002_book_author_book_is_bestselling_alter_book_rating.py
