@@ -82,26 +82,45 @@ it will create file ./book_outlet/migrations/0002_book_author_book_is_bestsellin
 ```bash
     // getting all entries
     >>> Book.objects.all()
-    >>> Book.objects.all()[0].author
+    <QuerySet [<Book: Harry Potter 1 - The Philospher's Stone (5)>, <Book: Lord of the Rings (4)>]>
+    >>> Book.objects.all()[0].author    
 ```
 ```bash
     // updating data
     >>> harry_potter = Book.objects.all()[0]
     >>> harry_potter.author = "J.K. Rowling"
     >>> harry_potter.is_bestselling = True
-    >>> harry_potter.save()
-    >>> harry_potter.is_bestselling 
-    True
+    >>> harry_potter.save() 
+    >>> Book.objects.all()[0].author
+    'J.K. Rowling'
 ```
 ```bash
     // deleting data
-    >>> harry_potter = Book.objects.all()[0]
     >>> harry_potter.delete()
-    (1, {'book_outlet.Book': 1}) 
+    (1, {'book_outlet.Book': 1})
     // (how many items deleted, wwhich model those deletions were)
+    >>> Book.objects.all()
+    <QuerySet [<Book: Lord of the Rings (4)>]>
 ```
 ```bash
     // create instead save
-    >>> Book.objects.create(title="Harry Potter 1", rating=5, author="J.K. Rowling")
+    >>> Book.objects.create(title="Harry Potter 1", rating=5, author="J.K. Rowling", is_bestselling=True)
+    <Book: Harry Potter 1 (5)>
+    >>> Book.objects.all()
+    <QuerySet [<Book: Lord of the Rings (4)>, <Book: Harry Potter 1 (5)>]>
 ```
+```bash
+    // querying & filtering data
+    
+    >>> Book.objects.get(id=2)      
+    <Book: Lord of the Rings (4)>
+    >>> Book.objects.get(title="Harry Potter 1")
+    <Book: Harry Potter 1 (5)>
+    // get only will return one data (unique key), or it would be error
 
+    >>> Book.objects.filter(is_bestselling=True)
+    <QuerySet [<Book: Lord of the Rings (4)>, <Book: Harry Potter 1 (5)>]>
+    >>> Book.objects.filter(rating__gte=4)
+    <QuerySet [<Book: Lord of the Rings (4)>, <Book: Harry Potter 1 (5)>]>
+```
+reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
