@@ -100,4 +100,8 @@ it will create file ./book_outlet/migrations/0002_book_author_book_is_bestsellin
     (1, {'book_outlet.Book': 1}) 
     // (how many items deleted, wwhich model those deletions were)
 ```
+```bash
+    // create instead save
+    >>> Book.objects.create(title="Harry Potter 1", rating=5, author="J.K. Rowling")
+```
 
