@@ -84,4 +84,13 @@ it will create file ./book_outlet/migrations/0002_book_author_book_is_bestsellin
     >>> Book.objects.all()
     >>> Book.objects.all()[0].author
 ```
+```bash
+    // updating data
+    >>> harry_potter = Book.objects.all()[0]
+    >>> harry_potter.author = "J.K. Rowling"
+    >>> harry_potter.is_bestselling = True
+    >>> harry_potter.save()
+    >>> harry_potter.is_bestselling 
+    True
+```
 
