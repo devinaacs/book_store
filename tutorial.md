@@ -64,3 +64,24 @@ it will create file ./book_outlet/migrations/0001_initial.py
     python3 manage.py migrate 
 ```
 it will create file ./book_outlet/migrations/0002_book_author_book_is_bestselling_alter_book_rating.py
+
+7. Practice CRUD models with python shell
+```bash
+    python3 manage.py shell
+```
+```bash
+    >>> from book_outlet.models import Book
+```
+```bash
+    // inserting data
+    >>> harry_potter = Book(title="Harry Potter 1 - The Philospher's Stone", rating=5)
+    >>> harry_potter.save()
+    >>> lord_of_the_rings = Book(title="Lord of the Rings", rating=4)
+    >>> lord_of_the_rings.save()
+```
+```bash
+    // getting all entries
+    >>> Book.objects.all()
+    >>> Book.objects.all()[0].author
+```
+
