@@ -112,15 +112,28 @@ it will create file ./book_outlet/migrations/0002_book_author_book_is_bestsellin
 ```bash
     // querying & filtering data
     
+    // get only will return one data (unique key), or it would be error
     >>> Book.objects.get(id=2)      
     <Book: Lord of the Rings (4)>
     >>> Book.objects.get(title="Harry Potter 1")
     <Book: Harry Potter 1 (5)>
-    // get only will return one data (unique key), or it would be error
 
+    // filter
     >>> Book.objects.filter(is_bestselling=True)
     <QuerySet [<Book: Lord of the Rings (4)>, <Book: Harry Potter 1 (5)>]>
     >>> Book.objects.filter(rating__gte=4)
     <QuerySet [<Book: Lord of the Rings (4)>, <Book: Harry Potter 1 (5)>]>
+    >>> Book.objects.filter(rating__gte=4, title__icontains="harry")
+    <QuerySet [<Book: Harry Potter 1 (5)>]>
 ```
 reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
+```bash
+    // filter with "or" conditions
+    >>> from django.db.models import Q
+    >>> Book.objects.filter(Q(rating__gte=4) | Q(is_bestselling=False))
+    <QuerySet [<Book: Lord of the Rings (4)>, <Book: Harry Potter 1 (5)>]>
+
+    // filter both "or" and "and"
+    >>> Book.objects.filter(Q(rating__gte=4) | Q(is_bestselling=False), Q(author="J.K. Rowling"))
+    <QuerySet [<Book: Harry Potter 1 (5)>]>
+```
