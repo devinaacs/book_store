@@ -93,4 +93,11 @@ it will create file ./book_outlet/migrations/0002_book_author_book_is_bestsellin
     >>> harry_potter.is_bestselling 
     True
 ```
+```bash
+    // deleting data
+    >>> harry_potter = Book.objects.all()[0]
+    >>> harry_potter.delete()
+    (1, {'book_outlet.Book': 1}) 
+    // (how many items deleted, wwhich model those deletions were)
+```
 
