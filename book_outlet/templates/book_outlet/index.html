@@ -7,7 +7,14 @@
 {% block content %}
     <ul>
         {% for book in books %}
-            <li>{{ book.title }} (Rating: {{ book.rating }})</li>
+            {% comment %} 
+                <a href="{% url 'book-detail' book.id %}">
+                    <li>{{ book.title }} (Rating: {{ book.rating }})</li>
+                </a> 
+            {% endcomment %}
+            <a href="{{ book.get_absolute_url }}">
+                <li>{{ book.title }} (Rating: {{ book.rating }})</li>
+            </a>
         {% endfor %}
     </ul>
 {% endblock %}
