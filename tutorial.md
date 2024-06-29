@@ -146,3 +146,57 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
     >>> print(amazing_bestsellers)
     <QuerySet [<Book: Harry Potter 1 (5)>]>
 ```
+
+7. Model URLs
+📂 ./book_outlet/models.py
+```bash
+    ...
+    from django.urls import reverse
+
+    class Book(models.Model):
+        ...
+        def get_absolute_url(self):
+            return reverse("book-detail", args=[self.id])
+```
+📂 ./book_outlet/templates/book_outlet/index.html
+```bash
+    // using id
+        <a href="{% url 'book-detail' book.id %}">
+            <li>{{ book.title }} (Rating: {{ book.rating }})</li>
+        </a> 
+    // using model get_absolute_url
+        <a href="{{ book.get_absolute_url }}">
+            <li>{{ book.title }} (Rating: {{ book.rating }})</li>
+        </a>
+            
+```
+
+8. Adding a Slugfield & Overwritting Save
+📂 ./book_outlet/models.py
+```bash
+    ...
+    from django.urls import reverse
+    from django.utils.text import slugify
+
+    class Book(models.Model):
+        ....
+        slug = models.SlugField(default="", null=False)
+
+        def ... 
+        
+        def save(self, *args, **kwargs):
+            self.slug = slugify(self.title)
+            return super().save(*args, **kwargs)
+```
+
+```bash
+    python3 manage.py makemigrations
+    python3 manage.py migrate
+    python3 manage.py shell
+```
+```bash
+    >>> Book.objects.get(title="Harry Potter 1").save()
+    >>> Book.objects.get(title="Lord of the Rings").save()
+    >>> Book.objects.get(title="Lord of the Rings").slug
+    'lord-of-the-rings'
+```
