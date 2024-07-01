@@ -200,3 +200,23 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
     >>> Book.objects.get(title="Lord of the Rings").slug
     'lord-of-the-rings'
 ```
+
+9. Aggregation & Ordering
+📂 ./book_outlet/views.py
+```bash
+    ...
+    from django.db.models import Avg
+    # Create your views here.
+
+
+    def index(request):
+        books = Book.objects.all().order_by("title")
+        num_books = books.count()
+        avg_rating = books.aggregate(Avg("rating"))
+        
+        return render(request, "book_outlet/index.html", {
+            "books": books,
+            "totatl_number_of_books": num_books,
+            "average_rating": avg_rating['rating__avg']
+        })
+```
