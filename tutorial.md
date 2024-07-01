@@ -220,3 +220,13 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
             "average_rating": avg_rating['rating__avg']
         })
 ```
+
+10. Logging Data Into the Admin
+```bash
+    python3 manage.py createsuperuser
+    Username (leave blank to use 'devinacecilia'): dev
+    Email address: cecildevinaa@gmail.com
+    Password: shinichikudo
+    Password (again): shinichikudo 
+    Superuser created successfully.
+```
