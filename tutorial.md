@@ -95,12 +95,16 @@ it will create file ./book_outlet/migrations/0002_book_author_book_is_bestsellin
     'J.K. Rowling'
 ```
 ```bash
-    // deleting data
+    // deleting one data
     >>> harry_potter.delete()
     (1, {'book_outlet.Book': 1})
     // (how many items deleted, wwhich model those deletions were)
     >>> Book.objects.all()
     <QuerySet [<Book: Lord of the Rings (4)>]>
+
+    // delete all data
+    >>> Book.objects.all().delete()
+    (2, {'book_outlet.Book': 2})
 ```
 ```bash
     // create instead save
