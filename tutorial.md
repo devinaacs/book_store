@@ -278,7 +278,8 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
         author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, related_name="books")
 ```
 ```bash
-    python3 manage.py shell   
+    python3 manage.py shell  
+    >>> from book_outlet.models import Book, Author
     >>> jkr = Author.objects.get(first_name="J.K.")
     >>> jkr.books.all()
     <QuerySet [<Book: Harry Potter and the Philosopher's Stone (5)>]>
@@ -337,4 +338,18 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
         def __str__(self):
             return self.full_name()
     ...
+```
+```bash
+    python3 manage.py shell   
+    >>> address1 = Address(street="44-46 Morningside Road",postal_code="EH101",city="Edinburgh")
+    >>> address2 = Address(street="267 Banbury Road",postal_code="OX27H",city="Oxford")
+    >>> address1.save()
+    >>> address2.save()
+    >>> jkr = Author.objects.get(first_name="J.K.")
+    >>> jkr.address = address1
+    >>> jkr.save()
+    >>> jrrt = Author.objects.get(last_name="Tolkien")
+    >>> jrrt.address = address2
+    >>> jrrt.address 
+    <Address: Address object (2)>
 ```
