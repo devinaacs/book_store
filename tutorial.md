@@ -287,3 +287,28 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
     >>> jkr.books.filter(rating__gt=3)
     <QuerySet [<Book: Harry Potter and the Philosopher's Stone (5)>]>
 ```
+
+13. Managing Relations in Admin
+📂 ./book_outlet/admin.py
+```bash
+    ...
+    from .models import Book, Author
+
+    ...
+    admin.site.register(Author)
+```
+```bash
+    ...
+
+    class Author(models.Model):
+        first_name = models.CharField(max_length=100)
+        last_name = models.CharField(max_length=100)
+        
+        def full_name(self):
+            return self.first_name + ' ' + self.last_name
+        
+        def __str__(self):
+            return self.full_name()
+    
+    ...
+    ```
