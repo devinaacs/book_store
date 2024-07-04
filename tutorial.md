@@ -234,3 +234,17 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
     Password (again): shinichikudo 
     Superuser created successfully.
 ```
+
+11. Working with relation in Python Code
+```bash
+    python3 manage.py shell   
+    >>> from book_outlet.models import Book, Author
+    >>> jkrowling = Author(first_name="J.K.", last_name="Rowling")
+    >>> jkrowling.save()
+    >>> hp1 = Book(title="Harry Potter and the Philosopher's Stone", rating=5, author=jkrowling, is_bestselling=True)
+    >>> hp1.save()
+    >>> Book.objects.all()[0]
+    <Book: Harry Potter and the Philosopher's Stone (5)>
+    >>> hp1.author.last_name
+    'Rowling'
+```
