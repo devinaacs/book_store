@@ -248,3 +248,42 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
     >>> hp1.author.last_name
     'Rowling'
 ```
+
+12. Cross Model Queries
+```bash
+    python3 manage.py shell   
+    >>> from book_outlet.models import Book, Author
+    >>> harrypotter = Book.objects.get(title="Harry Potter and the Philosopher's Stone")
+    >>> books_by_rowling = Book.objects.filter(author__last_name="Rowling")
+    >>> books_by_rowling
+    <QuerySet [<Book: Harry Potter and the Philosopher's Stone (5)>]>
+
+    >>> books_by_rowling = Book.objects.filter(author__last_name__contains="wling")
+    >>> books_by_rowling
+    <QuerySet [<Book: Harry Potter and the Philosopher's Stone (5)>]>
+
+    >>> jkr = Author.objects.get(first_name="J.K.")
+    >>> jkr
+    <Author: Author object (1)>
+    >>> jkr.book_set
+    <django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x106ad3ef0>
+```
+
+📂 ./book_outlet/models.py
+```bash
+    ...
+
+    class Book(models.Model):
+        ....
+        author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, related_name="books")
+```
+```bash
+    python3 manage.py shell   
+    >>> jkr = Author.objects.get(first_name="J.K.")
+    >>> jkr.books.all()
+    <QuerySet [<Book: Harry Potter and the Philosopher's Stone (5)>]>
+    >>> jkr.books.get(title="Harry Potter and the Philosopher's Stone")
+    <Book: Harry Potter and the Philosopher's Stone (5)>
+    >>> jkr.books.filter(rating__gt=3)
+    <QuerySet [<Book: Harry Potter and the Philosopher's Stone (5)>]>
+```
