@@ -289,6 +289,7 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
 ```
 
 13. Managing Relations in Admin
+
 📂 ./book_outlet/admin.py
 ```bash
     ...
@@ -297,6 +298,8 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
     ...
     admin.site.register(Author)
 ```
+
+📂 ./book_outlet/models.py
 ```bash
     ...
 
@@ -311,4 +314,27 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
             return self.full_name()
     
     ...
-    ```
+```
+14. Adding a one-to-one Relations
+
+📂 ./book_outlet/models.py
+```bash
+    ...
+
+    class Address(models.Model):
+        street = models.CharField(max_length=80)
+        postal_code = models.CharField(max_length=5)
+        city = models.CharField(max_length=50)
+        
+    class Author(models.Model):
+        first_name = models.CharField(max_length=100)
+        last_name = models.CharField(max_length=100)
+        address = models.OneToOneField(Address, on_delete=models.CASCADE, null=True,)
+        
+        def full_name(self):
+            return self.first_name + ' ' + self.last_name
+        
+        def __str__(self):
+            return self.full_name()
+    ...
+```
