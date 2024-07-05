@@ -353,3 +353,27 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
     >>> jrrt.address 
     <Address: Address object (2)>
 ```
+
+15. One-to-one & Admin Config
+
+📂 ./book_outlet/admin.py
+```bash
+    ...
+    from .models import Book, Author, Address
+
+    ...
+    admin.site.register(Address)
+```
+📂 ./book_outlet/models.py
+```bash
+    class Address(models.Model):
+        street = models.CharField(max_length=80)
+        postal_code = models.CharField(max_length=5)
+        city = models.CharField(max_length=50)
+
+        def __str__(self):
+            return f"{self.street}, {self.postal_code}, {self.city}"
+        
+        class Meta:
+            verbose_name_plural = 'Address Entries'
+```
