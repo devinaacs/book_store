@@ -396,3 +396,15 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
     python3 manage.py migrate
 ```
 
+
+17. Using Many-To-Many in Python
+```bash
+    python3 manage.py shell
+    >>> germany = Country(name="Germany", code="DE")
+    >>> germany.save()
+    >>> hp1= Book.objects.all()[0]
+    >>> hp1.published_countries.add(germany)
+    >>> hp1.published_countries.all()
+    <QuerySet [<Country: Country object (1)>]>
+```
+
