@@ -408,3 +408,26 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
     <QuerySet [<Country: Country object (1)>]>
 ```
 
+18. Many-to-Many in Admin
+
+📂 ./book_outlet/admin.py
+```bash
+    ...
+    from .models import Book, Author, Address, Country
+
+    ...
+    admin.site.register(Country)
+```
+📂 ./book_outlet/models.py
+```bash
+    class Country(models.Model):
+    name = models.CharField(max_length=80)
+    code = models.CharField(max_length=2) 
+    
+    class Meta: 
+        verbose_name_plural = 'Countries'
+
+    def __str__(self):
+        return self.name
+```
+
