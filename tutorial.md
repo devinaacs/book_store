@@ -377,3 +377,22 @@ reference: https://docs.djangoproject.com/en/5.0/ref/models/querysets/
         class Meta:
             verbose_name_plural = 'Address Entries'
 ```
+
+16. Setting up many-to-many
+
+📂 ./book_outlet/models.py
+```bash
+    class Country(models.Model):
+        name = models.CharField(max_length=80)
+        code = models.CharField(max_length=2) 
+        
+    class Book(models.Model):
+        ...
+        published_countries = models.ManyToManyField(Country)
+
+```
+```bash
+    python3 manage.py makemigrations
+    python3 manage.py migrate
+```
+
